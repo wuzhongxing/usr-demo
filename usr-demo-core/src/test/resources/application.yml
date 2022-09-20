@@ -1,0 +1,95 @@
+server:
+  port: 8081
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+  undertow:
+    buffer-size: 1024
+    threads:
+      io: 4
+      worker: 256
+
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+#logging:
+#  config: "classpath:log4j2-${spring.profiles.active}.xml"
+
+
+spring:
+  ### 项目基本信息
+  application:
+    name: "demo"
+  profiles:
+    active: dev
+
+
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+      fail_on_empty_beans: false
+    deserialization:
+      fail_on_unknown_properties: false
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+    servlet:
+      path: /demo
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 100
+      max-wait: 60000
+      time-between-eviction-runs-millis: 30000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&noAccessToProcedureBodies=true&useSSL=false
+      username: root
+      password: 123456
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp-mail.outlook.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+    username: 1@22.com
+    password: 111
+#    host: mail.demo.com
+#    port: 25
+
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.wzx.demo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
+servlet-path: /demo
+---
+debug: true
+spring.profiles: dev

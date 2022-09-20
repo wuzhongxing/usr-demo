@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO" monitorInterval="60">
+<!--    <Properties>-->
+<!--        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>-->
+<!--        <Property name="LOG_LEVEL_PATTERN">%5p</Property>-->
+<!--        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %clr%5p} %clr{[%15.15t]}{blue} %clr{%C.%M(%L)}{cyan} &ndash;&gt; %m%n</Property>-->
+<!--    </Properties>-->
+    <!-- -->
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8" pattern="%d{yyyy-MM-dd HH:mm:ss} %5p %clr{[%15.15t]}{blue} %clr{%C.%M(%L)}{cyan} %m%n" />
+        </Console>
+    </appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.wzx" level="DEBUG" additivity="false" includeLocation="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="druid.sql.Statement" level="INFO" additivity="false" includeLocation="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</configuration>

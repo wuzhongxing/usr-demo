@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzx.demo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wzx.demo.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="crete_time" jdbcType="TIMESTAMP" property="creteTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="email_status" jdbcType="TINYINT" property="emailStatus" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, name, email, crete_time, modify_time, is_del, email_status, send_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from m_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from m_user
+    where uid = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from m_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzx.demo.entity.User" useGeneratedKeys="true" keyProperty="id">
+    insert into m_user (id, uid, name, 
+      email, crete_time, modify_time, 
+      is_del, email_status, send_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{creteTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=TINYINT}, #{emailStatus,jdbcType=TINYINT}, #{sendTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wzx.demo.entity.User" useGeneratedKeys="true" keyProperty="id">
+    insert into m_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="creteTime != null">
+        crete_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="emailStatus != null">
+        email_status,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="creteTime != null">
+        #{creteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="emailStatus != null">
+        #{emailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByUidSelective" parameterType="com.wzx.demo.entity.User">
+    update m_user
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="creteTime != null">
+        crete_time = #{creteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="emailStatus != null">
+        email_status = #{emailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzx.demo.entity.User">
+    update m_user
+    set uid = #{uid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      crete_time = #{creteTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=TINYINT},
+      email_status = #{emailStatus,jdbcType=TINYINT},
+      send_time = #{sendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="delUsers" parameterType="java.util.List">
+    update m_user
+    set is_del = 1
+    where uid in
+    <foreach collection="uidList"  item="item" open="(" close=")" separator="," >
+      #{item}
+    </foreach> ;
+  </update>
+  <select id="queryUserInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from m_user
+  </select>
+
+</mapper>
