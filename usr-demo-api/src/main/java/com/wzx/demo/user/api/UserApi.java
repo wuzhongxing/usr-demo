@@ -11,6 +11,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * 用户服务接口
+ */
 public interface UserApi {
     /**
      * 查询用户

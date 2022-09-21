@@ -18,3 +18,9 @@
 
 ##生成api
 - 生成doc api： mvn -DskipTests=true com.github.apiggs:apiggs-maven-plugin:1.6:apiggs
+
+##运行
+cd usr-demo-web
+sh start.sh
+或者拷贝target到tomcat下
+cp -r  usr-demo-web/target/demo tomcat/ROOT/

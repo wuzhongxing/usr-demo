@@ -8,10 +8,15 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class UserPageRequest {
+    /**
+     * 页数
+     */
     @NotNull
     @Min(1)
     private Integer pageNum;
-
+    /**
+     * 每页条数
+     */
     @NotNull
     @Min(1)
     @Max(20)

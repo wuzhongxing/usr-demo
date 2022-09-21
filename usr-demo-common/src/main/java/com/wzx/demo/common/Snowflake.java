@@ -7,8 +7,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
 public class Snowflake {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Snowflake.class);
@@ -77,25 +75,6 @@ public class Snowflake {
     public static Snowflake create(long workerId) {
         return new Snowflake(workerId);
     }
-
-    public long[] nextId(int size) {
-        LOGGER.info("nextId param size = {}", size);
-
-        if (size <= 0 || size > 1_000_000) {
-            String message = String.format("Size grater than %d or less than 0", 1_000_000);
-            throw new IllegalArgumentException(message);
-        }
-
-        long[] ids = new long[size];
-        for (int i = 0; i < size; i++) {
-            ids[i] = nextId();
-        }
-
-        LOGGER.info("nextId result = {}", Arrays.toString(ids));
-
-        return ids;
-    }
-
 
     public synchronized long nextId() {
 

@@ -6,10 +6,13 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class UserUpdateRequest {
+    /**
+     * 用户uid
+     */
     @NotNull
     private Long uid;
 
     private String name;
-
-    private String email;
+// email 不可修改
+//    private String email;
 }
