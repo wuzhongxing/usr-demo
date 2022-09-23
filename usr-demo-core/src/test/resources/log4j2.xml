@@ -2,18 +2,35 @@
 <configuration status="INFO" monitorInterval="60">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout charset="UTF-8" pattern="%d{yyyy-MM-dd HH:mm:ss} %clr%5p} %clr{[%15.15t]}{blue} %clr{%C.%M(%L)}{cyan} %m%n" />
+            <PatternLayout charset="UTF-8"
+                           pattern="%d{yyyy-MM-dd HH:mm:ss} %clr%5p} %clr{[%15.15t]}{blue} %clr{%C.%M(%L)}{cyan} %m%n"/>
         </Console>
+        <RollingFile name="RollingFile" fileName="logs/demo.log"
+                     filePattern="logs/demo.%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout alwaysWriteExceptions="true" charset="UTF-8">
+                <PatternLayout charset="UTF-8"
+                               pattern="%d{yyyy-MM-dd HH:mm:ss} %clr%5p} %clr{[%15.15t]}{blue} %clr{%C.%M(%L)}{cyan} %m%n"/>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="200"/>
+        </RollingFile>
     </appenders>
     <Loggers>
         <Root level="INFO">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
         </Root>
         <Logger name="com.wzx" level="DEBUG" additivity="false" includeLocation="true">
             <AppenderRef ref="Console"/>
         </Logger>
         <Logger name="druid.sql.Statement" level="INFO" additivity="false" includeLocation="true">
             <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="com.wzx" level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="RollingFile"/>
         </Logger>
     </Loggers>
 </configuration>
