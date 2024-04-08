@@ -53,6 +53,7 @@
         <pagehelper.version>5.1.2</pagehelper.version>
         <pagehelper-spring-boot-starter.version>1.2.3</pagehelper-spring-boot-starter.version>
         <mybatis.version>3.4.5</mybatis.version>
+        <profiles.dir>src/main/profiles</profiles.dir>
     </properties>
 
     <dependencyManagement>
@@ -252,8 +253,17 @@
                 <log4j.level>debug</log4j.level>
                 <log4j.path>logs</log4j.path>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/dev</directory>
+                    </resource>
+                </resources>
+            </build>
         </profile>
-
     </profiles>
 
     <build>

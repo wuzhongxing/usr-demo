@@ -12,4 +12,11 @@ public class SnowflakeTest {
         Snowflake snowflake = Snowflake.create(workId);
         Assert.assertTrue(snowflake.nextId() > 0);
     }
+
+    @Test
+    public void testChange() {
+        System.out.println("workId = " + Integer.toBinaryString(18));
+        System.out.println("workId = " + Integer.toBinaryString(25));
+        System.out.println("workId = " + Integer.toBinaryString(37));
+    }
 }
